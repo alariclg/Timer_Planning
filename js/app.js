@@ -35,11 +35,12 @@ var app = new Vue({
   },
   methods:{
     addChrono: function (name,duration,color = "success") {
-      let newChrono = new Chrono(name,duration,color);
-      if(newChrono){
-        this.chronos.push(newChrono);
+      if(name !== "" && duration !== ""){
+        let newChrono = new Chrono(name,duration,color);
+        if(newChrono){
+          this.chronos.push(newChrono);
+        }
       }
-
     },
     deleteChrono: function(key){
       delete this.chronos[key];
