@@ -28,42 +28,73 @@
 			<div class="page-content">
 				<div class="mdl-grid">
 					<div class="mdl-cell mdl-cell--12-col">
-						<ul class="mdl-list">
-							<h4 class="mdl-cell mdl-cell--12-col"> Chronos </h4>
-							<table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
-								<tbody>
-									<tr>
-										<td class="mdl-data-table__cell--non-numeric"><i class="material-icons  mdl-list__item-alarm">alarm</i></td>
-										<td>pompes</td>
-										<td>20 secondes</td>
-									</tr>
-								</tbody>
-							</table>
-						</ul>
+						<h4 class="mdl-cell mdl-cell--12-col"> Chronos </h4>
+						<table v-if="chronos.length > 0" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+							<tbody>
+								<tr v-for="chrono in chronos">
+									<td class="mdl-data-table__cell--non-numeric"><i class="material-icons  mdl-list__item-alarm">alarm</i></td>
+									<td class="mdl-data-table__cell--non-numeric">{{chrono.name}}</td>
+									<td class="mdl-data-table__cell--non-numeric">{{chrono.duration}} secondes</td>
+								</tr>
+							</tbody>
+						</table>
+						<p class="mdl-cell mdl-cell--12-col" v-else>
+							Please add a Chrono
+						</p>
 					</div>
 					<div class="mdl-cell mdl-cell--12-col mdl-cell_timer">
-						<h3>00:00 / 00:00</h3> 
+						<h3>{{duration_time}} / {{passed_time}}</h3> 
 					</div>
 					<div class="mdl-cell mdl-cell--12-col mdl-cell_action">
-						<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+						<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" v-on:click="play()">
 							<i class="material-icons">play_arrow</i>
 						</button>
-						<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+						<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" v-on:click="pause_time()">
 							<i class="material-icons">pause</i>
 						</button>
-						<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+						<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" v-on:click="stop()">
 							<i class="material-icons">stop</i>
 						</button>
 					</div>
 					<div class="mdl-cell mdl-cell--12-col">
-						<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button flt-right">
+						<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button flt-right" v-on:click="openDialog()">
 							<i class="material-icons">alarm_add</i>
 						</button>
 					</div>
 				</div>
 			</div>
+			<dialog class="mdl-dialog">
+				<div class="mdl-dialog__content">
+					<h3>
+						Add a Chrono
+					</h3>
+				</div>
+				<form action="#">
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<input class="mdl-textfield__input" v-model="form.name" type="text" id="sample3">
+						<label class="mdl-textfield__label" for="sample3">Name</label>
+					</div>
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<input class="mdl-textfield__input" v-model="form.duration" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="sample4">
+						<label class="mdl-textfield__label" for="sample4">Duration in secondes</label>
+						<span class="mdl-textfield__error">Please enter numbers...</span>
+					</div>
+				</form>
+				<div class="mdl-dialog__actions mdl-dialog__actions--full-width">
+					<button type="button" v-on:click="addChrono(form.name,form.duration)" class="mdl-button">Add chrono</button>
+					<button type="button" v-on:click="closeDialog()" class="mdl-button">Cancel</button>
+				</div>
+			</dialog>
 		</main>
-		<footer>
+		<footer class="mdl-mini-footer">
+			
+			<div class="mdl-mini-footer__left-section">
+				<ul class="mdl-mini-footer__link-list">
+					<li><a href="http://a-legrais.fr">Alaric LEGRAIS</a></li>
+					<li><a href="https://github.com/shadow140/"> MIT License</a></li>
+				</ul>
+			</div>
+
 			<!-- 	Audio biper -->
 			<audio id="audio" style="display:none" v-model="player" src="audio/bip.mp3"></audio>
 
@@ -75,7 +106,7 @@
 			<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 
 			<!-- 	VueJs & App -->
-			<script src="https://unpkg.com/vue"></script>
+			<script src="js/vue.js"></script>
 			<script src="js/app.js"></script>
 		</footer>
 	</div>

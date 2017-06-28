@@ -1,10 +1,9 @@
 
 class Chrono{  
-  constructor(name, duration, color){
+  constructor(name, duration){
     this.key = name + "-" + Math.random(0,100);
     this.name = name;
     this.duration = Number(duration);
-    this.color = "list-group-item-"+color;
   }
 }  
 
@@ -16,28 +15,40 @@ var app = new Vue({
     form:{
       name:"",
       duration:0,
-      color:""
     },
     message:"steps",
+    passed:0,
     duration:0,
-    passed_time:0,
-    time:0,
-    passed_percent:0,
+    passed_time:"00:00",
+    duration_time:"00:00",
     inited:false,
     pause:false,
+    finished:false,
     currentChrono:false,
     currentId:0,
+    dialog:{},
     player:{},
     timeout:{},
     interval:{}
   },
   mounted: function(){
     this.player = document.querySelector('#audio');
+    this.dialog = document.querySelector('dialog');
+    if (! this.dialog.showModal) {
+      dialogPolyfill.registerDialog(this.dialog);
+    }
   },
   methods:{
-    addChrono: function (name,duration,color = "success") {
-      if(name !== "" && duration !== ""){
-        let newChrono = new Chrono(name,duration,color);
+    openDialog:function(){
+      this.dialog.showModal();
+    },
+    closeDialog:function(){
+      this.dialog.close();
+    },
+    addChrono: function (name,duration) {
+      if(name !== "" && duration !== 0){
+        this.closeDialog();
+        let newChrono = new Chrono(name,duration);
         if(newChrono){
           this.chronos.push(newChrono);
         }
@@ -46,7 +57,7 @@ var app = new Vue({
     deleteChrono: function(key){
       delete this.chronos[key];
     },
-    updateChrono: function(key, name = false ,duration = false,color = false){
+    updateChrono: function(key, name = false, duration = false){
       if(name){
         this.chronos[key].name = name;
       } 
@@ -58,23 +69,22 @@ var app = new Vue({
       }
     },
     init: function(){
-      this.currentChrono = this.chronos[0];
-      this.duration = 0
-      for(var i=0; i < this.chronos.length ; i++){
-        this.duration = this.duration + this.chronos[i].duration;
-      }
-      this.time = this.duration;
-      this.passed_time = 0;
-      this.passed_percent = 0;
-      this.timeout = setInterval(()=>{
-        if(!this.paused){
-          this.passed_time = this.passed_time + 1;
-          this.time = this.time - 1;
-          this.passed_percent = this.passed_time / this.duration * 100;
-          console.log(this.passed_percent);
+      if(this.chronos.length > 0){
+        this.currentChrono = this.chronos[0];
+        this.duration = 0;
+        this.passed = 0;
+        for(var i=0; i < this.chronos.length ; i++){
+          this.duration = this.duration + this.chronos[i].duration;
         }
-      },1000);
-      this.next(0);
+        this.showCountDown(true);
+        this.timeout = setInterval(()=>{
+          if(!this.paused && !this.finished){
+            this.passed++;
+            this.showCountDown(false);
+          }
+        },1000);
+        this.next(0); 
+      }
     },
     play: function(){
       this.paused = false;
@@ -101,9 +111,37 @@ var app = new Vue({
           if(this.chronos[id+1]){
             this.next(id+1);
             this.currentId++;
+          }else{
+            this.finished = true;
           }
         }
       }, this.chronos[id].duration*1000);
+    },
+    showCountDown:function(init){
+      if(init){
+       var duration_minutes = Math.floor(this.duration / 60);
+       var duration_secondes = 0;
+        
+       if(duration_minutes === 0){
+         duration_secondes = this.duration;
+       }else{
+         duration_secondes = this.duration % 60;
+       }
+        
+       this.duration_time = (duration_minutes >= 10 ? duration_minutes : "0" + duration_minutes) + ":" +(duration_secondes >= 10 ? duration_secondes : "0" + duration_secondes);
+      }
+      
+      var passed_minutes = Math.floor(this.passed / 60);
+      var passed_secondes = 0;
+      
+       if(passed_minutes === 0){
+         passed_secondes = this.passed;
+       }else{
+         passed_secondes = this.passed % 60;
+       }
+      
+      this.passed_time = (passed_minutes >= 10 ? passed_minutes : "0" + passed_minutes) + ":" +(passed_secondes >= 10 ? passed_secondes : "0" + passed_secondes);
+      
     }
   }
 })
