@@ -69,42 +69,45 @@ var app = new Vue({
     },
     init: function(){
       if(this.chronos.length > 0){
-        this.currentChrono = this.chronos[0];
+        this.inited = true;
         this.duration = 0;
         this.passed = 0;
         for(var i=0; i < this.chronos.length ; i++){
           this.duration = this.duration + this.chronos[i].duration;
         }
+        this.currentChrono = this.chronos[0];
         this.showCountDown(true);
-        this.timeout = setInterval(()=>{
+        
+        this.interval = setInterval(()=>{
           if(!this.paused && !this.finished){
             this.passed++;
             this.showCountDown(false);
           }
         },1000);
+        
         this.next(0); 
       }
     },
     play: function(){
-      this.paused = false;
       if(!this.inited){
         this.init();
-      }else{
-        this.inited = true;
       }
+      this.paused = false;
     },
     pause_time: function(){
       this.paused = true;
     },
     stop: function(){
       this.paused = true;
-      clearInterval(this.interval);
       clearTimeout(this.timeout);
+      for(var i = 1; i < this.interval; i++){
+         clearInterval(this.interval);
+      }
       this.init();
     },
     next: function(id){
       this.currentChrono = this.chronos[id];
-      this.interval = setTimeout(()=>{ 
+      this.timeout = setTimeout(()=>{ 
         if(!this.paused){
           this.player.play();
           if(this.chronos[id+1]){
