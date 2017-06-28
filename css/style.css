@@ -1,0 +1,16 @@
+/* All elements */
+.flt-right{
+  float:right;
+}
+/* Table */
+.mdl-data-table{
+  width: 100%;
+}
+/* mdl-cell */
+.mdl-cell_timer{
+  text-align:center;
+}
+
+.mdl-cell_action{
+  text-align:center;
+}
