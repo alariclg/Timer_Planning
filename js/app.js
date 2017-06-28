@@ -22,7 +22,6 @@ var app = new Vue({
     duration_time:"00:00",
     inited:false,
     pause:false,
-    finished:false,
     currentChrono:false,
     currentId:0,
     dialog:{},
@@ -79,7 +78,7 @@ var app = new Vue({
         this.showCountDown(true);
         
         this.interval = setInterval(()=>{
-          if(!this.paused && !this.finished){
+          if(!this.paused){
             this.passed++;
             this.showCountDown(false);
           }
@@ -114,7 +113,7 @@ var app = new Vue({
             this.next(id+1);
             this.currentId++;
           }else{
-            this.finished = true;
+            this.stop();
           }
         }
       }, this.chronos[id].duration*1000);
