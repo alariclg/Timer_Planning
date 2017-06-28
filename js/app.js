@@ -116,10 +116,17 @@ var app = new Vue({
             this.currentId++;
           }else{
             this.finished = true;
-            this.stop();
           }
         }
       }, this.chronos[id].duration*1000);
+      if(this.finished){
+        this.paused = true;
+        clearTimeout(this.timeout);
+        for(var i = 1; i < this.interval; i++){
+           clearInterval(this.interval);
+        }
+        this.inited =false;
+      }
     },
     showCountDown:function(init){
       if(init){
