@@ -3,7 +3,7 @@
 <div class="container">
   <div id="app" class="row">
     <div class="col-md-12">
-      <h2>Chrono Planning</h2>
+      <h2>Chrono Planning V0.1</h2>
     </div>
     <div class="col-md-12">
       <ul class="list-group">
@@ -15,7 +15,7 @@
     </div>
     <div class="col-md-12">
 			<form class="">
-			 <h3 v-if="currentChrono">{{currentChrono.name}} - {{currentChrono.duration}} secondes / {{passed_time}} secondes </h3>
+			 <h3 v-if="currentChrono">{{currentChrono.name}} - {{currentChrono.duration}} secondes / {{time}} secondes </h3>
        <div class="progress">
           <div class="progress-bar" role="progressbar" v-bind:style="'width:'+ passed_percent +'%'" v-bind:aria-valuenow="passed_percent" aria-valuemin="0" aria-valuemax="100"></div>
        </div>
@@ -36,7 +36,7 @@
         </div>
         <div class="checkbox">
           <label>
-            <input v-model="form.color" value="success" type="radio"> Success
+            <input v-model="form.color" value="success" type="radio"> Green
           </label>
           <label>
             <input v-model="form.color" value="danger" type="radio"> Red

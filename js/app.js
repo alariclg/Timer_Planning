@@ -21,6 +21,7 @@ var app = new Vue({
     message:"steps",
     duration:0,
     passed_time:0,
+    time:0,
     passed_percent:0,
     inited:false,
     pause:false,
@@ -62,15 +63,21 @@ var app = new Vue({
       for(var i=0; i < this.chronos.length ; i++){
         this.duration = this.duration + this.chronos[i].duration;
       }
-      this.passed_time = this.duration;
+      this.time = this.duration;
+      this.passed_time = 0;
+      this.passed_percent = 0;
       this.timeout = setInterval(()=>{
         if(!this.paused){
-          this.passed_time = this.passed_time - 1
+          this.passed_time = this.passed_time + 1;
+          this.time = this.time - 1;
+          this.passed_percent = this.passed_time / this.duration * 100;
+          console.log(this.passed_percent);
         }
       },1000);
       this.next(0);
     },
     play: function(){
+      this.paused = false;
       if(!this.inited){
         this.init();
       }else{
@@ -81,8 +88,9 @@ var app = new Vue({
       this.paused = true;
     },
     stop: function(){
+      this.paused = true;
       clearInterval(this.interval);
-      clearInterval(this.timeout);
+      clearTimeout(this.timeout);
       this.init();
     },
     next: function(id){
