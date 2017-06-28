@@ -1,7 +1,6 @@
 
 class Chrono{  
   constructor(name, duration){
-    this.key = name + "-" + Math.random(0,100);
     this.name = name;
     this.duration = Number(duration);
   }
@@ -54,10 +53,10 @@ var app = new Vue({
         }
       }
     },
-    deleteChrono: function(key){
-      delete this.chronos[key];
+    deleteChrono: function(index){
+      this.chronos.splice(index, 1);
     },
-    updateChrono: function(key, name = false, duration = false){
+    updateChrono: function(index, name = false, duration = false){
       if(name){
         this.chronos[key].name = name;
       } 

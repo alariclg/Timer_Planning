@@ -31,10 +31,11 @@
 						<h4 class="mdl-cell mdl-cell--12-col"> Chronos </h4>
 						<table v-if="chronos.length > 0" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
 							<tbody>
-								<tr v-for="chrono in chronos">
+								<tr v-for="(chrono, index) in chronos">
 									<td class="mdl-data-table__cell--non-numeric"><i class="material-icons  mdl-list__item-alarm">alarm</i></td>
 									<td class="mdl-data-table__cell--non-numeric">{{chrono.name}}</td>
 									<td class="mdl-data-table__cell--non-numeric">{{chrono.duration}} secondes</td>
+									<td class="mdl-data-table__cell--non-numeric" v-on:click="deleteChrono(index)"><i class="material-icons  mdl-list__item-delete">delete</i></td>
 								</tr>
 							</tbody>
 						</table>
