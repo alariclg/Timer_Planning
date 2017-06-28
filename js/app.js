@@ -21,7 +21,6 @@ var app = new Vue({
     passed_time:"00:00",
     duration_time:"00:00",
     inited:false,
-    finished:false,
     pause:false,
     currentChrono:false,
     currentId:0,
@@ -78,28 +77,29 @@ var app = new Vue({
         }
         this.currentChrono = this.chronos[0];
         this.showCountDown(true);
-        
-        this.interval = setInterval(()=>{
-          if(!this.paused  && !this.finished){
-            this.passed++;
-            this.showCountDown(false);
-          }
-        },1000);
-        
-        this.next(0); 
       }
     },
     play: function(){
       if(!this.inited){
         this.init();
       }
-      this.paused = false;
+      if(!this.paused){
+        this.interval = setInterval(()=>{
+          if(!this.paused){
+            this.passed++;
+            this.showCountDown(false);
+          }
+        },1000);
+        this.next(0)
+        
+      }else{
+       this.paused = false; 
+      }      
     },
     pause_time: function(){
       this.paused = true;
     },
     stop: function(){
-      this.paused = true;
       clearTimeout(this.timeout);
       for(var i = 1; i < this.interval; i++){
          clearInterval(this.interval);
@@ -115,7 +115,7 @@ var app = new Vue({
             this.next(id+1);
             this.currentId++;
           }else{
-            this.finished = true;
+           this.stop();
           }
         }
       }, this.chronos[id].duration*1000);
