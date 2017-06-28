@@ -6,6 +6,9 @@
 .mdl-data-table{
   width: 100%;
 }
+.mdl-data-table-delete{
+  cursor:pointer;
+}
 /* mdl-cell */
 .mdl-cell_timer{
   text-align:center;

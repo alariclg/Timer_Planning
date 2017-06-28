@@ -35,7 +35,7 @@
 									<td class="mdl-data-table__cell--non-numeric"><i class="material-icons  mdl-list__item-alarm">alarm</i></td>
 									<td class="mdl-data-table__cell--non-numeric">{{chrono.name}}</td>
 									<td class="mdl-data-table__cell--non-numeric">{{chrono.duration}} secondes</td>
-									<td class="mdl-data-table__cell--non-numeric" v-on:click="deleteChrono(index)"><i class="material-icons  mdl-list__item-delete">delete</i></td>
+									<td class="mdl-data-table__cell--non-numeric mdl-data-table-delete" v-on:click="deleteChrono(index)"><i class="material-icons  mdl-list__item-delete">delete</i></td>
 								</tr>
 							</tbody>
 						</table>
@@ -44,6 +44,7 @@
 						</p>
 					</div>
 					<div class="mdl-cell mdl-cell--12-col mdl-cell_timer">
+						<h2 v-if="currentChrono">{{currentChrono.name}}</h2>
 						<h3>{{duration_time}} / {{passed_time}}</h3> 
 					</div>
 					<div class="mdl-cell mdl-cell--12-col mdl-cell_action">
