@@ -109,7 +109,7 @@ var app = new Vue({
     next: function(id){
       this.currentChrono = this.chronos[id];
       this.timeout = setTimeout(()=>{ 
-        if(!this.paused && !this.finished){
+        if(!this.paused){
           this.player.play();
           if(this.chronos[id+1]){
             this.next(id+1);
@@ -119,14 +119,6 @@ var app = new Vue({
           }
         }
       }, this.chronos[id].duration*1000);
-      if(this.finished){
-        this.paused = true;
-        clearTimeout(this.timeout);
-        for(var i = 1; i < this.interval; i++){
-           clearInterval(this.interval);
-        }
-        this.inited =false;
-      }
     },
     showCountDown:function(init){
       if(init){
