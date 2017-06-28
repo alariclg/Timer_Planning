@@ -21,6 +21,7 @@ var app = new Vue({
     passed_time:"00:00",
     duration_time:"00:00",
     inited:false,
+    finished:false,
     pause:false,
     currentChrono:false,
     currentId:0,
@@ -69,6 +70,7 @@ var app = new Vue({
     init: function(){
       if(this.chronos.length > 0){
         this.inited = true;
+        this.paused = false;
         this.duration = 0;
         this.passed = 0;
         for(var i=0; i < this.chronos.length ; i++){
@@ -78,7 +80,7 @@ var app = new Vue({
         this.showCountDown(true);
         
         this.interval = setInterval(()=>{
-          if(!this.paused){
+          if(!this.paused  && !this.finished){
             this.passed++;
             this.showCountDown(false);
           }
@@ -107,12 +109,13 @@ var app = new Vue({
     next: function(id){
       this.currentChrono = this.chronos[id];
       this.timeout = setTimeout(()=>{ 
-        if(!this.paused){
+        if(!this.paused && !this.finished){
           this.player.play();
           if(this.chronos[id+1]){
             this.next(id+1);
             this.currentId++;
           }else{
+            this.finished = true;
             this.stop();
           }
         }
