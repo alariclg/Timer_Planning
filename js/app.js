@@ -9,13 +9,11 @@ class Chrono{
 var app = new Vue({
   el: '#app',
   data: {
-    repeat:false,
     chronos: [],
     form:{
       name:"",
       duration:0,
     },
-    message:"steps",
     passed:0,
     duration:0,
     passed_time:"00:00",
@@ -23,7 +21,6 @@ var app = new Vue({
     inited:false,
     pause:false,
     currentChrono:false,
-    currentId:0,
     dialog:{},
     player:{},
     timeout:{},
@@ -32,7 +29,7 @@ var app = new Vue({
   mounted: function(){
     this.player = document.querySelector('#audio');
     this.dialog = document.querySelector('dialog');
-    if (! this.dialog.showModal) {
+    if (!this.dialog.showModal) {
       dialogPolyfill.registerDialog(this.dialog);
     }
   },
@@ -49,6 +46,7 @@ var app = new Vue({
         let newChrono = new Chrono(name,duration);
         if(newChrono){
           this.chronos.push(newChrono);
+          this.init();
         }
       }
     },
@@ -82,19 +80,20 @@ var app = new Vue({
     play: function(){
       if(!this.inited){
         this.init();
-      }
-      if(!this.paused){
-        this.interval = setInterval(()=>{
-          if(!this.paused){
-            this.passed++;
-            this.showCountDown(false);
-          }
-        },1000);
-        this.next(0)
-        
       }else{
-       this.paused = false; 
-      }      
+        if(!this.paused){
+          this.interval = setInterval(()=>{
+            if(!this.paused){
+              this.passed++;
+              this.showCountDown(false);
+            }
+          },1000);
+          this.next(0)  
+        }else{
+         this.paused = false; 
+        }      
+      }
+  
     },
     pause_time: function(){
       this.paused = true;
@@ -113,7 +112,6 @@ var app = new Vue({
           this.player.play();
           if(this.chronos[id+1]){
             this.next(id+1);
-            this.currentId++;
           }else{
            this.stop();
           }

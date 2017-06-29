@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -113,8 +111,5 @@
 		</footer>
 	</div>
 </body>
-<footer>
-
-</footer>
 </html>
 
