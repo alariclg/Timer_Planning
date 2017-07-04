@@ -70,6 +70,7 @@ var app = new Vue({
     },
     deleteChrono: function(index){
       this.chronos.splice(index, 1);
+      this.init();
     },
     updateChrono: function(index, name = false, duration = false){
       if(name){
@@ -83,17 +84,19 @@ var app = new Vue({
       }
     },
     init: function(){
+      this.duration = 0;
+      this.passed = 0;
+      
       if(this.chronos.length > 0){
         this.inited = true;
         this.paused = false;
-        this.duration = 0;
-        this.passed = 0;
+
         for(var i=0; i < this.chronos.length ; i++){
           this.duration = this.duration + this.chronos[i].duration;
         }
         this.currentChrono = this.chronos[0];
-        this.showCountDown(true);
       }
+      this.showCountDown(true);     
     },
     play: function(){
       if(!this.inited){

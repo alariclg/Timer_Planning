@@ -100,7 +100,7 @@
 	</dialog>
 	
 	<!-- 	Audio biper -->
-	<audio id="audio" style="display:none" v-model="player" src="audio/bip.mp3"></audio>
+	<audio id="audio" style="display:none" v-model="player" src="audio/bip.wav"></audio>
 
 	<!-- 	Material Design Lite version -->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
