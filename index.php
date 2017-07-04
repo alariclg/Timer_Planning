@@ -15,7 +15,7 @@
 
 	<title>Chrono Planning v1.0</title>
 </head>
-<body class="">
+<body>
 	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
 		<header class="mdl-layout__header">
 			<div class="mdl-layout__header-row">
@@ -63,53 +63,54 @@
 					</div>
 				</div>
 			</div>
-			<dialog class="mdl-dialog">
-				<div class="mdl-dialog__content">
-					<h3>
-						Add a Chrono
-					</h3>
-				</div>
-				<form action="#">
-					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" v-model="form.name" type="text" id="sample3">
-						<label class="mdl-textfield__label" for="sample3">Name</label>
-					</div>
-					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" v-model="form.duration" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="sample4">
-						<label class="mdl-textfield__label" for="sample4">Duration in secondes</label>
-						<span class="mdl-textfield__error">Please enter numbers...</span>
-					</div>
-				</form>
-				<div class="mdl-dialog__actions mdl-dialog__actions--full-width">
-					<button type="button" v-on:click="addChrono(form.name,form.duration)" class="mdl-button">Add chrono</button>
-					<button type="button" v-on:click="closeDialog()" class="mdl-button">Cancel</button>
-				</div>
-			</dialog>
+			
 		</main>
 		<footer class="mdl-mini-footer">
-			
 			<div class="mdl-mini-footer__left-section">
 				<ul class="mdl-mini-footer__link-list">
 					<li><a href="http://a-legrais.fr">Alaric LEGRAIS</a></li>
 					<li><a href="https://github.com/shadow140/"> MIT License</a></li>
 				</ul>
 			</div>
-
-			<!-- 	Audio biper -->
-			<audio id="audio" style="display:none" v-model="player" src="audio/bip.mp3"></audio>
-
-			<!-- 	Material Design Lite version -->
-			<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-			<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
-			<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue-light_blue.min.css" />
-			<link rel="stylesheet" href="css/style.css" />
-			<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-
-			<!-- 	VueJs & App -->
-			<script src="js/vue.js"></script>
-			<script src="js/app.js"></script>
-		</footer>
+		</footer>	
 	</div>
+	
+	<dialog id="dialog" class="mdl-dialog">
+		<div class="mdl-dialog__content">
+			<h3>
+				Add a Chrono
+			</h3>
+		</div>
+		<form action="#">
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				<input class="mdl-textfield__input" v-model="form.name" type="text" id="sample3">
+				<label class="mdl-textfield__label" for="sample3">Name</label>
+			</div>
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				<input class="mdl-textfield__input" v-model="form.duration" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="sample4">
+				<label class="mdl-textfield__label" for="sample4">Duration in secondes</label>
+				<span class="mdl-textfield__error">Please enter numbers...</span>
+			</div>
+		</form>
+		<div class="mdl-dialog__actions mdl-dialog__actions--full-width">
+			<button type="button" v-on:click="addChrono(form.name,form.duration)" class="mdl-button">Add chrono</button>
+			<button type="button" v-on:click="closeDialog()" class="mdl-button">Cancel</button>
+		</div>
+	</dialog>
+	
+	<!-- 	Audio biper -->
+	<audio id="audio" style="display:none" v-model="player" src="audio/bip.mp3"></audio>
+
+	<!-- 	Material Design Lite version -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+	<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue-light_blue.min.css" />
+	<link rel="stylesheet" href="css/style.css" />
+	<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+	
+	<!-- 	VueJs & App -->
+	<script src="js/vue.js"></script>
+	<script src="js/app.js"></script>
 </body>
 </html>
 

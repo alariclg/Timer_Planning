@@ -5,15 +5,37 @@ class Chrono{
     this.duration = Number(duration);
   }
 }  
+var dialog = new Vue({
+   el:'#dialog',
+   data:{
+    form:{
+      name:"",
+      duration:0,
+    }
+   },
+   mounted:function(){
+    this.dialog = document.querySelector('dialog');
+    if (!this.dialog.showModal) {
+      dialogPolyfill.registerDialog(this.dialog);
+    }
+   },
+   methods:{
+    openDialog:function(){
+      this.dialog.showModal();
+    },
+    closeDialog:function(){
+      this.dialog.close();
+    },
+    addChrono: function (name,duration) {
+      app.addChrono(name,duration);
+    }
+   }
+})
 
 var app = new Vue({
   el: '#app',
   data: {
     chronos: [],
-    form:{
-      name:"",
-      duration:0,
-    },
     passed:0,
     duration:0,
     passed_time:"00:00",
@@ -28,17 +50,13 @@ var app = new Vue({
   },
   mounted: function(){
     this.player = document.querySelector('#audio');
-    this.dialog = document.querySelector('dialog');
-    if (!this.dialog.showModal) {
-      dialogPolyfill.registerDialog(this.dialog);
-    }
   },
   methods:{
     openDialog:function(){
-      this.dialog.showModal();
+      dialog.openDialog();
     },
     closeDialog:function(){
-      this.dialog.close();
+      dialog.closeDialog();
     },
     addChrono: function (name,duration) {
       if(name !== "" && duration !== 0){
@@ -146,3 +164,4 @@ var app = new Vue({
     }
   }
 })
+
