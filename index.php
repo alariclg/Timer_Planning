@@ -12,7 +12,7 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<meta name="apple-mobile-web-app-title" content="Material Design Lite">
-  <link rel="stylesheet" type="text/css" href="node_modules/dialog-polyfill/dialog-polyfill.css" />
+  <link rel="stylesheet" type="text/css" href="css/dialog-polyfill.css" />
 	<title>Chrono Planning v1.0</title>
 </head>
 <body>
@@ -108,8 +108,9 @@
 	<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue-light_blue.min.css" />
 	<link rel="stylesheet" href="css/style.css" />
 	
-  <script src="node_modules/dialog-polyfill/dialog-polyfill.js"></script>
+
 	<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+	<script src="js/dialog-polyfill.js"></script>
 	
 	<!-- 	VueJs & App -->
 	<script src="js/vue.js"></script>
