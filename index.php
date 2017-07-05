@@ -79,7 +79,7 @@
 	<dialog id="dialog" class="mdl-dialog">
 		<div class="mdl-dialog__content">
 			<h3>
-				Add a Chrono
+				New timer
 			</h3>
 		</div>
 		<form action="#">
@@ -94,7 +94,7 @@
 			</div>
 		</form>
 		<div class="mdl-dialog__actions mdl-dialog__actions--full-width">
-			<button type="button" v-on:click="addChrono(form.name,form.duration)" class="mdl-button">Add chrono</button>
+			<button type="button" v-on:click="addChrono(form.name,form.duration)" class="mdl-button">Add timer</button>
 			<button type="button" v-on:click="closeDialog()" class="mdl-button">Cancel</button>
 		</div>
 	</dialog>
