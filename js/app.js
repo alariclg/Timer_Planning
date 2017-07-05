@@ -65,13 +65,13 @@ var app = new Vue({
         let newChrono = new Chrono(name,duration);
         if(newChrono){
           this.chronos.push(newChrono);
-          this.init();
+          this.stop();
         }
       }
     },
     deleteChrono: function(index){
       this.chronos.splice(index, 1);
-      this.init();
+      this.stop();
     },
     updateChrono: function(index, name = false, duration = false){
       if(name){
