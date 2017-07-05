@@ -1,4 +1,4 @@
-# Chrono_Planning v1.0
+# Timer_Planning v1.0
 > A chronometer step by step...
 
 ## Meta

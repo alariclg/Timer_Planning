@@ -13,21 +13,21 @@
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<meta name="apple-mobile-web-app-title" content="Material Design Lite">
   <link rel="stylesheet" type="text/css" href="css/dialog-polyfill.css" />
-	<title>Chrono Planning v1.0</title>
+	<title>Timer Planning v1.0</title>
 </head>
 <body>
 	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
 		<header class="mdl-layout__header">
-			
 			<div class="mdl-layout__header-row">
-				<span class="mdl-layout-title">Chrono Planning v1.0</span>
+				<i class="material-icons  mdl-list__item-alarm">alarm</i>
+				<span class="mdl-layout-title">Timer Planning v1.0</span>
 			</div>
   	</header>
 		<main id="app" class="mdl-layout__content">
 			<div class="page-content">
 				<div class="mdl-grid">
 					<div class="mdl-cell mdl-cell--12-col">
-						<h4 class="mdl-cell mdl-cell--12-col"> Chronos </h4>
+						<h4 class="mdl-cell mdl-cell--12-col"> Timers </h4>
 						<table v-if="chronos.length > 0" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
 							<tbody>
 								<tr v-for="(chrono, index) in chronos">
@@ -39,7 +39,7 @@
 							</tbody>
 						</table>
 						<p class="mdl-cell mdl-cell--12-col" v-else>
-							Please add a Chrono
+							Please add a Timer
 						</p>
 					</div>
 					<div class="mdl-cell mdl-cell--12-col mdl-cell_timer">

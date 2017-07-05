@@ -41,7 +41,8 @@ var app = new Vue({
     passed_time:"00:00",
     duration_time:"00:00",
     inited:false,
-    pause:false,
+    paused:true,
+    started:false,
     currentChrono:false,
     dialog:{},
     player:{},
@@ -86,35 +87,36 @@ var app = new Vue({
     init: function(){
       this.duration = 0;
       this.passed = 0;
+      this.started = false;
       
       if(this.chronos.length > 0){
         this.inited = true;
-        this.paused = false;
-
         for(var i=0; i < this.chronos.length ; i++){
           this.duration = this.duration + this.chronos[i].duration;
         }
         this.currentChrono = this.chronos[0];
       }
       this.showCountDown(true);     
+      
     },
     play: function(){
       if(!this.inited){
         this.init();
       }else{
-        if(!this.paused){
-          this.interval = setInterval(()=>{
-            if(!this.paused){
-              this.passed++;
-              this.showCountDown(false);
-            }
-          },1000);
-          this.next(0)  
-        }else{
-         this.paused = false; 
-        }      
+       if(!this.started){
+        this.interval = setInterval(()=>{
+          if(!this.paused){
+            this.passed++;
+            this.showCountDown(false);
+          }
+        },1000);
+       this.next(0);
+       this.started = true;
       }
-  
+      if(this.paused){
+        this.paused = false;   
+       }
+      }
     },
     pause_time: function(){
       this.paused = true;
