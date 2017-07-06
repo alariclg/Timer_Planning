@@ -134,7 +134,7 @@
 		<form action="#">
 			<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
 					<tbody>
-						<tr v-for="(timers, index) in list" v-on:click="select(timers)">
+						<tr v-for="(timers, index) in list" v-on:click="select(timers,index)">
 							<td class="mdl-data-table__cell--non-numeric">{{timers.name}}</td>
 						  <td class="mdl-data-table__cell--non-numeric">{{timers.date}}</td>
 						</tr>
