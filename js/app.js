@@ -29,7 +29,7 @@ var app = new Vue({
   mounted: function(){
     this.player = document.querySelector('#audio');
     var storage = JSON.parse(localStorage.getItem("Timer_Planning"));
-    if(storage){
+    if(storage && storage.length >0){
       this.have_storage = true;
     }
   },

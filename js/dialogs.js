@@ -91,7 +91,7 @@ var import_dialog = new Vue({
       dialogPolyfill.registerDialog(this.dialog);
     }
     var currentStorage = JSON.parse(localStorage.getItem("Timer_Planning"));
-    if (currentStorage) {
+    if (currentStorage && currentStorage.length > 0) {
       this.list = currentStorage;
     }
   },
