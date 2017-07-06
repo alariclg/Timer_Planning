@@ -5,32 +5,6 @@ class Chrono{
     this.duration = Number(duration);
   }
 }  
-var dialog = new Vue({
-   el:'#dialog',
-   data:{
-    form:{
-      name:"",
-      duration:0,
-    }
-   },
-   mounted:function(){
-    this.dialog = document.querySelector('dialog');
-    if (!this.dialog.showModal) {
-      dialogPolyfill.registerDialog(this.dialog);
-    }
-   },
-   methods:{
-    openDialog:function(){
-      this.dialog.showModal();
-    },
-    closeDialog:function(){
-      this.dialog.close();
-    },
-    addChrono: function (name,duration) {
-      app.addChrono(name,duration);
-    }
-   }
-})
 
 var app = new Vue({
   el: '#app',
@@ -49,22 +23,38 @@ var app = new Vue({
     currentChrono:false,
     dialog:{},
     player:{},
-    timeout:{},
-    interval:{}
+    interval:{},
+    have_storage:false
   },
   mounted: function(){
     this.player = document.querySelector('#audio');
+    var storage = JSON.parse(localStorage.getItem("Timer_Planning"));
+    if(storage){
+      this.have_storage = true;
+    }
   },
   methods:{
-    openDialog:function(){
-      dialog.openDialog();
+    openAddDialog:function(){
+      add_dialog.openDialog();
     },
-    closeDialog:function(){
-      dialog.closeDialog();
+    closeAddDialog:function(){
+      add_dialog.closeDialog();
+    },
+    openSaveDialog:function(){
+      save_dialog.openDialog();
+    },
+    closeSaveDialog:function(){
+      save_dialog.closeDialog();
+    },
+    openImportDialog:function(){
+      import_dialog.openDialog();
+    },
+    closeImportDialog:function(){
+      import_dialog.closeDialog();
     },
     addChrono: function (name,duration) {
       if(name !== "" && duration !== 0){
-        this.closeDialog();
+        this.closeAddDialog();
         let newChrono = new Chrono(name,duration);
         if(newChrono){
           this.chronos.push(newChrono);

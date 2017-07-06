@@ -13,14 +13,14 @@
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<meta name="apple-mobile-web-app-title" content="Material Design Lite">
   <link rel="stylesheet" type="text/css" href="css/dialog-polyfill.css" />
-	<title>Timer Planning v1.0</title>
+	<title>Timer Planning v2.0</title>
 </head>
 <body>
 	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
 		<header class="mdl-layout__header">
 			<div class="mdl-layout__header-row">
 				<i class="material-icons  mdl-list__item-alarm">alarm</i>
-				<span class="mdl-layout-title">Timer Planning v1.0</span>
+				<span class="mdl-layout-title">Timer Planning v2.0</span>
 			</div>
   	</header>
 		<main id="app" class="mdl-layout__content">
@@ -59,18 +59,16 @@
 					</div>
 					<div class="mdl-cell mdl-cell--12-col flt-right">
 						<div class="align-right">
-							<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button" v-on:click="openDialog()">
+							<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button" v-on:click="openAddDialog()">
 								<i class="material-icons">alarm_add</i>
 							</button>
+							<button v-if="have_storage" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button" v-on:click="openImportDialog()">
+								<i class="material-icons">file_download</i>
+							</button>
+							<button v-if="chronos.length > 0" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button mdl-button--colored" v-on:click="openSaveDialog()">
+								<i class="material-icons">save</i>
+							</button>
 						</div>
-					</div>
-					<div class="mdl-cell mdl-cell--12-col align-right">
-					 <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button mdl-button--colored" v-on:click="saveTimers()">
-							<i class="material-icons">save</i>
-						</button>
-						<button v-if="true" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button" v-on:click="importTimers()">
-							<i class="material-icons">file_download</i>
-						</button>
 					</div>
 				</div>
 			</div>
@@ -86,7 +84,7 @@
 		</footer>	
 	</div>
 	
-	<dialog id="dialog" class="mdl-dialog">
+	<dialog id="dialog-add" class="mdl-dialog">
 		<div class="mdl-dialog__content">
 			<h3>
 				New timer
@@ -109,6 +107,49 @@
 		</div>
 	</dialog>
 	
+	<dialog id="dialog-save" class="mdl-dialog">
+		<div class="mdl-dialog__content">
+			<h3>
+				Save Timers
+			</h3>
+		</div>
+		<form action="#">
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				<input class="mdl-textfield__input" v-model="form.name" type="text" id="sample3">
+				<label class="mdl-textfield__label" for="sample3">Name</label>
+			</div>
+		</form>
+		<div class="mdl-dialog__actions mdl-dialog__actions--full-width">
+			<button type="button" v-on:click="saveTimers(form.name)" class="mdl-button">Save timers</button>
+			<button type="button" v-on:click="closeDialog()" class="mdl-button">Cancel</button>
+		</div>
+	</dialog>
+	
+	<dialog id="dialog-import" class="mdl-dialog">
+		<div class="mdl-dialog__content">
+			<h3>
+				Import Timers
+			</h3>
+		</div>
+		<form action="#">
+			<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+					<tbody>
+						<tr v-for="(timers, index) in list" v-on:click="select(timers)">
+							<td class="mdl-data-table__cell--non-numeric">{{timers.name}}</td>
+						  <td class="mdl-data-table__cell--non-numeric">{{timers.date}}</td>
+						</tr>
+					</tbody>
+				</table>
+		</form>
+		<div class="mdl-dialog__content">
+		</div>
+		<div class="mdl-dialog__actions mdl-dialog__actions--full-width">
+			<button type="button" v-on:click="importTimers()" class="mdl-button">Import Timers</button>
+			<button type="button" v-on:click="deleteTimers()" class="mdl-button">Delete Timers</button>
+			<button type="button" v-on:click="closeDialog()" class="mdl-button">Cancel</button>
+		</div>
+	</dialog>
+	
 	<!-- 	Audio biper -->
 	<audio id="audio" style="display:none" v-model="player" src="audio/bip.wav"></audio>
 
@@ -124,6 +165,7 @@
 	
 	<!-- 	VueJs & App -->
 	<script src="js/vue.js"></script>
+	<script src="js/dialogs.js"></script>
 	<script src="js/app.js"></script>
 </body>
 </html>
