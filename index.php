@@ -57,9 +57,19 @@
 							<i class="material-icons">stop</i>
 						</button>
 					</div>
-					<div class="mdl-cell mdl-cell--12-col">
-						<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button flt-right" v-on:click="openDialog()">
-							<i class="material-icons">alarm_add</i>
+					<div class="mdl-cell mdl-cell--12-col flt-right">
+						<div class="align-right">
+							<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button" v-on:click="openDialog()">
+								<i class="material-icons">alarm_add</i>
+							</button>
+						</div>
+					</div>
+					<div class="mdl-cell mdl-cell--12-col align-right">
+					 <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button mdl-button--colored" v-on:click="saveTimers()">
+							<i class="material-icons">save</i>
+						</button>
+						<button v-if="true" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button" v-on:click="importTimers()">
+							<i class="material-icons">file_download</i>
 						</button>
 					</div>
 				</div>

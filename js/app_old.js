@@ -38,12 +38,9 @@ var app = new Vue({
     chronos: [],
     passed:0,
     duration:0,
-    id:0,
-    chrono_time:0,
     passed_time:"00:00",
     duration_time:"00:00",
     inited:false,
-    end:false,
     paused:true,
     started:false,
     currentChrono:false,
@@ -91,7 +88,7 @@ var app = new Vue({
       this.duration = 0;
       this.passed = 0;
       this.started = false;
-
+      
       if(this.chronos.length > 0){
         this.inited = true;
         for(var i=0; i < this.chronos.length ; i++){
@@ -103,40 +100,23 @@ var app = new Vue({
       
     },
     play: function(){
-      if(this.end){
-        this.end = false;
-        this.stop();
-      }
       if(!this.inited){
         this.init();
       }else{
-        if(!this.started){
-          this.id = 0;
-          this.chrono_time = 0;
-          this.currentChrono = this.chronos[this.id];   
-          this.interval = setInterval(()=>{
-            if(!this.paused && !this.end){
-              this.passed++;
-              this.chrono_time++; 
-              if(this.chrono_time === this.currentChrono.duration){
-                this.player.play();
-                this.id++;
-                if(this.id < this.chronos.length){
-                   this.chrono_time = 0;
-                   this.currentChrono = this.chronos[this.id];
-                }else{
-                   this.end = true;
-                }
-              }            
-              this.showCountDown(false);
-            }
-          },1000);
-         this.started = true;
+       if(!this.started){
+        this.interval = setInterval(()=>{
+          if(!this.paused){
+            this.passed++;
+            this.showCountDown(false);
+          }
+        },1000);
+       this.next(0);
+       this.started = true;
       }
-    }
-    if(this.paused){
-      this.paused = false;   
-     }
+      if(this.paused){
+        this.paused = false;   
+       }
+      }
     },
     pause_time: function(){
       this.paused = true;
@@ -147,6 +127,19 @@ var app = new Vue({
          clearInterval(this.interval);
       }
       this.init();
+    },
+    next: function(id){
+      this.currentChrono = this.chronos[id];
+      this.timeout = setTimeout(()=>{ 
+        if(!this.paused){
+          this.player.play();
+          if(this.chronos[id+1]){
+            this.next(id+1);
+          }else{
+           this.stop();
+          }
+        }
+      }, this.chronos[id].duration*1000);
     },
     showCountDown:function(init){
       if(init){
