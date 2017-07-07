@@ -106,6 +106,7 @@ var import_dialog = new Vue({
     importTimers: function() {
       if (this.selected) {
         app.chronos = this.selected.timers;
+        app.stop();
         this.closeDialog();
       }
     },
