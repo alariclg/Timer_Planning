@@ -5,7 +5,7 @@
 
 * Fixing Play/Pause issues
 * Save timer list in local storage
-* Import timer list form local storage
+* Import timer list from local storage
 
 ## Meta
 Alaric LEGRAIS – [@alariclg](https://twitter.com/alariclg) – http://a-legrais.fr
